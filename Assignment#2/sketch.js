@@ -33,7 +33,7 @@ function draw() {
   fill('black')
   rect(5, 5 + (32 * 9), 30, 30)
 
-  //if(mouseIsPressed && )
+ // if(mouseIsPressed && )
 
   if(mouseIsPressed){
     fill('black')
