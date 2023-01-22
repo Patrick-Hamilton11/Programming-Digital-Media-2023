@@ -1,13 +1,14 @@
+let currentColor, button, button2;
+
 function setup() {
   createCanvas(displayWidth, displayHeight);
+  currentColor = 'black'
 }
 
 function draw() {
-  //make the background light grey
-  fill(240);
-  
   //makes the shapes have no border
   noStroke();
+
 
   //color picker
   fill('white');
@@ -33,15 +34,63 @@ function draw() {
   fill('black')
   rect(5, 5 + (32 * 9), 30, 30)
 
- // if(mouseIsPressed && )
+  //check is red box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 5 && mouseY <= 35) ){
+    currentColor = 'red';
+  }
+
+  //check is orange box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 37 && mouseY <= 67) ){
+    currentColor = 'orange';
+  }
+
+  //check is yellow box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 69 && mouseY <= 99) ){
+    currentColor = 'yellow';
+  }
+
+  //check is lime box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 101 && mouseY <= 131) ){
+    currentColor = 'lime';
+  }
+
+  //check is cyan box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 133 && mouseY <= 163) ){
+    currentColor = 'cyan';
+  }
+
+  //check is blue box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 165 && mouseY <= 195) ){
+    currentColor = 'blue';
+  }
+
+  //check is magenta box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 197 && mouseY <= 227) ){
+    currentColor = 'magenta';
+  }
+
+  //check is brown box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 229 && mouseY <= 259) ){
+    currentColor = 'brown';
+  }
+
+  //check is white box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 261 && mouseY <= 291) ){
+    currentColor = 'white';
+  }
+
+  //check is black box is pressed and chages currentColor
+  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 293 && mouseY <= 323) ){
+    currentColor = 'black';
+  }
+
+
 
   if(mouseIsPressed){
-    fill('black')
-    stroke(0);
-    strokeWeight(3);
+    stroke(currentColor);
+    strokeWeight(6);   
     line(mouseX, mouseY,pmouseX, pmouseY)
-
-   }
+  }
 }
 
 
