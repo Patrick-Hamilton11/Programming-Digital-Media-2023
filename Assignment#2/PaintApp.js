@@ -1,96 +1,73 @@
-let currentColor, button, button2;
+let currentColor = 'black';
+let colorButtons;
 
 function setup() {
   createCanvas(displayWidth, displayHeight);
-  currentColor = 'black'
+  colorButtons = [
+    new ColorButton (5, 5, 30, 'red'),
+    new ColorButton (5, 5 + (32 * 1), 30, 'orange'),
+    new ColorButton (5, 5 + (32 * 2), 30, 'yellow'),
+    new ColorButton (5, 5 + (32 * 3), 30, 'lime'),
+    new ColorButton (5, 5 + (32 * 4), 30, 'cyan'),
+    new ColorButton (5, 5 + (32 * 5), 30, 'bule'),
+    new ColorButton (5, 5 + (32 * 6), 30, 'magenta'),
+    new ColorButton (5, 5 + (32 * 7), 30, 'brown'),
+    new ColorButton (5, 5 + (32 * 8), 30, 'white'),
+    new ColorButton (5, 5 + (32 * 9), 30, 'black')
+  ]
 }
 
 function draw() {
   //makes the shapes have no border
   noStroke();
 
-
-  //color picker
+  //makes a background for the colorButtons
   fill('white');
   rect(0, 0, 40, 328);
-  fill('red')
-  rect(5, 5, 30, 30)
-  fill('orange')
-  rect(5, 5 + (32 * 1), 30, 30)
-  fill('yellow')
-  rect(5, 5 + (32 * 2), 30, 30)
-  fill('lime')
-  rect(5, 5 + (32 * 3), 30, 30)
-  fill('cyan')
-  rect(5, 5 + (32 * 4), 30, 30)
-  fill('blue')
-  rect(5, 5 + (32 * 5), 30, 30)
-  fill('magenta')
-  rect(5, 5 + (32 * 6), 30, 30)
-  fill('Brown')
-  rect(5, 5 + (32 * 7), 30, 30)
-  fill('white')
-  rect(5, 5 + (32 * 8), 30, 30)
-  fill('black')
-  rect(5, 5 + (32 * 9), 30, 30)
 
-  //check is red box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 5 && mouseY <= 35) ){
-    currentColor = 'red';
+  for(let i=0; i < colorButtons.length; i++){
+    colorButtons[i].draw();
+  }
+}
+
+//draws a line of the currentColor
+function mouseDragged(){
+  stroke(currentColor);
+  strokeWeight(6);   
+  line(mouseX, mouseY,pmouseX, pmouseY)
+}
+
+function mouseClicked(){
+  for(let i=0; i < colorButtons.length; i++){
+    colorButtons[i].changeColor();
+  }
+}
+
+
+class ColorButton{
+  constructor(x,y,size,color) {
+    this.x = x;
+    this.y = y;
+    this.size = size;
+    this.color = color;
   }
 
-  //check is orange box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 37 && mouseY <= 67) ){
-    currentColor = 'orange';
+  draw(){
+    fill(this.color);
+    square(this.x,this.y,this.size);
   }
 
-  //check is yellow box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 69 && mouseY <= 99) ){
-    currentColor = 'yellow';
+  changeColor(){
+    let insideX = mouseX >= this.x && mouseX <= (this.x + this.size);
+    let insideY = mouseY >= this.y && mouseY <= (this.y + this.size);
+    console.log("in x:",insideX);
+    console.log("in y:",insideY);
+
+    if(insideX && insideY){
+      currentColor = this.color;
+    }
   }
 
-  //check is lime box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 101 && mouseY <= 131) ){
-    currentColor = 'lime';
-  }
-
-  //check is cyan box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 133 && mouseY <= 163) ){
-    currentColor = 'cyan';
-  }
-
-  //check is blue box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 165 && mouseY <= 195) ){
-    currentColor = 'blue';
-  }
-
-  //check is magenta box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 197 && mouseY <= 227) ){
-    currentColor = 'magenta';
-  }
-
-  //check is brown box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 229 && mouseY <= 259) ){
-    currentColor = 'brown';
-  }
-
-  //check is white box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 261 && mouseY <= 291) ){
-    currentColor = 'white';
-  }
-
-  //check is black box is pressed and chages currentColor
-  if(mouseIsPressed && (mouseX >= 5 && mouseX <= 35) && (mouseY >= 293 && mouseY <= 323) ){
-    currentColor = 'black';
-  }
-
-
-
-  if(mouseIsPressed){
-    stroke(currentColor);
-    strokeWeight(6);   
-    line(mouseX, mouseY,pmouseX, pmouseY)
-  }
 }
 
 
