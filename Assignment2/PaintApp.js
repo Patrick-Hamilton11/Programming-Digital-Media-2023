@@ -9,7 +9,7 @@ function setup() {
     new ColorButton (5, 5 + (32 * 2), 30, 'yellow'),
     new ColorButton (5, 5 + (32 * 3), 30, 'lime'),
     new ColorButton (5, 5 + (32 * 4), 30, 'cyan'),
-    new ColorButton (5, 5 + (32 * 5), 30, 'bule'),
+    new ColorButton (5, 5 + (32 * 5), 30, 'blue'),
     new ColorButton (5, 5 + (32 * 6), 30, 'magenta'),
     new ColorButton (5, 5 + (32 * 7), 30, 'brown'),
     new ColorButton (5, 5 + (32 * 8), 30, 'white'),
@@ -42,7 +42,6 @@ function mouseClicked(){
     colorButtons[i].changeColor();
   }
 }
-
 
 class ColorButton{
   constructor(x,y,size,color) {
