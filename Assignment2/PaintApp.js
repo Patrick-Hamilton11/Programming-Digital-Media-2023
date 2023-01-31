@@ -25,6 +25,7 @@ function draw() {
   fill('white');
   rect(0, 0, 40, 328);
 
+  //loop that draws all the colorButton objects
   for(let i=0; i < colorButtons.length; i++){
     colorButtons[i].draw();
   }
