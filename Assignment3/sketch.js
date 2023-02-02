@@ -1,3 +1,4 @@
+let cnv;
 let spriteSheet, spriteSheet2, spriteSheet3;
 let sprite1, sprite2, sprite3, sprite4;
 
@@ -8,8 +9,13 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(700, 550);
+  cnv = createCanvas(windowWidth, 550);
+  var x = (windowWidth - width) / 2;
+  var y = (windowHeight - height) / 2;
+  cnv.position(x, y);
+
   imageMode(CENTER);
+
   sprite1 = new sprite(width/2, 200, spriteSheet);
   sprite2 = new sprite(width/2, 300, spriteSheet2);
   sprite3 = new sprite(width/2, 400, spriteSheet3);
@@ -24,14 +30,40 @@ function draw() {
   fill("yellow");
   circle(0, 0, 100);
   pop();
+  //draws the clouds
+  cloud(width/6,100,1);
+  cloud(width/2.5,80,1.1);
+  cloud(width - width/6, 90,0.9);
   //draws the platforms 
+  push();
+  stroke('tan')
+  strokeWeight(4);
   line(0, 232, width, 232);
   line(0, 332, width, 332)
   line(0, 432, width, 432)
+  pop();
   //draws the characters
   sprite1.draw();
   sprite2.draw();
   sprite3.draw();
+  //Text: Walking Simulator
+  textSize(40);
+  textAlign(CENTER);
+  stroke('white')
+  textFont('Georgia');
+  text("Walking Simulator", width/2, height - 40);
+}
+
+function cloud(x, y, scaleSize) {
+  push();
+  noStroke();
+  fill('white');
+  scale(scaleSize);
+  circle(x, y, 75);
+  circle(x+20, y-20, 75);
+  circle(x+25, y+20, 75);
+  circle(x+50, y, 75);
+  pop();
 }
 
 class sprite {
@@ -46,6 +78,12 @@ class sprite {
 
   draw() {
     this.sx = this.sx % 7;
+    if(this.x < 25){
+      this.x = 25;
+    }
+    if(this.x > width - 25){
+      this.x = width -25;
+    }
     if (keyIsDown(LEFT_ARROW)) {
       this.facing = -1;
       push();
