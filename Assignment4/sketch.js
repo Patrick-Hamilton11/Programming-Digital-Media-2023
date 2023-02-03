@@ -1,4 +1,4 @@
-let deadBug;
+let bugNormal;
 function preload(){
   bugNormal = loadImage("assets/BugSquishNormalTransparent.png");
 }
