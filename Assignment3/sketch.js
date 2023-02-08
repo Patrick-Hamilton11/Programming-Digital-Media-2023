@@ -4,7 +4,7 @@ let sprite1, sprite2, sprite3, sprite4;
 
 function preload() {
   spriteSheet = loadImage("assets/SpelunkyNinja.png");
-  spriteSheet2 = loadImage("assets/Spelunkyviking.png");
+  spriteSheet2 = loadImage("assets/SpelunkyViking.png");
   spriteSheet3 = loadImage("assets/SpelunkyRoundBoy.png");
 }
 
