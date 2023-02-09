@@ -1,5 +1,4 @@
 let cnv;
-
 let spriteSheet, spriteSheet2, spriteSheet3;
 let sprite1, sprite2, sprite3, sprite4;
 
