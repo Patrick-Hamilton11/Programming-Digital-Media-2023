@@ -47,15 +47,22 @@ function setup() {
 function draw() {
   background(220);
 
-  text('Click Screen to play Audio and Video!', 180, 50);
+  text('Click Screen to play audio and video!', 180, 50);
+  text("Maglev Train",250,380);
+}
+
+function keyPressed() {
+  if(KEYCODE === ''){
+    Tone.start();
+  }
 }
 
 
 function mousePressed() {
-  Tone.start();
   console.log('pressed');
   gif_createImg = createImg("assets/maglevTrain2.webp");
   gif_createImg.position(10,60);
   noiseEnv.triggerAttackRelease(2);
+  
 
 }
