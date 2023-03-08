@@ -21,6 +21,15 @@ const Synth = new Tone.FMSynth({
     }
 })
 
+const osc = new Tone.OmniOscillator("C#4", "pwm").start();
+
+const ampEnv = new Tone.AmplitudeEnvelope({
+  attack: 0.5,
+  decay: 0.6,
+  sustain: 0.3,
+  release: 0.2
+})
+
 const reverb = new Tone.JCReverb({
   "roomSize" : 0.6,
   "wet" : 0
@@ -58,6 +67,7 @@ function setup() {
 
   harmonicitySlider = createSlider(2, 16, 8, 0.5);
   harmonicitySlider.position(10, 100);
+  
 
 }
 
