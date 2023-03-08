@@ -52,6 +52,7 @@ function draw() {
 
 
 function mousePressed() {
+  Tone.start();
   console.log('pressed');
   gif_createImg = createImg("assets/maglevTrain2.webp");
   gif_createImg.position(10,60);
