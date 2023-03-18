@@ -30,8 +30,10 @@ function draw() {
   background(220);
 }
 
-function KeyPressed(){  
-  pigSound.start();
+function keyPressed(){  
+  if (keyCode === UP_ARROW) {
+    sounds.player("pigSound").start();
+  }
 }
 
 function buttonSound(wichSound){
