@@ -19,8 +19,13 @@ let game = {
   state: GameState.Start 
 }
 
+//gain
+const gainNode = new Tone.Gain(0.08).toDestination();
+
 //synth
-let synth = new Tone.PolySynth().toDestination();
+let synth = new Tone.MonoSynth().connect(gainNode);
+
+
 
 //notes to the intro of crazy train
 let crazyTrain = ['F#4', 'F#4', 'C#5', 'F#4', 'D5', 'F#4', 'C#5', 'F#4', 'B4', 'A4', 'G#4', 'A4', 'B4', 'A4', 'G#4', 'E4'];
@@ -32,32 +37,37 @@ const melody = new Tone.Sequence((time, note) => {
 
 //bassline
 
-const synthA = new Tone.FMSynth().toDestination();
-const synthB = new Tone.AMSynth().toDestination();
+const synthA = new Tone.MembraneSynth().connect(gainNode);
+const synthB = new Tone.MembraneSynth().connect(gainNode);
 
+//play a note every quarter-note
 const loopA = new Tone.Loop(time => {
-	synthA.triggerAttackRelease("C2", "16n", time);
+	synthA.triggerAttackRelease("C2", "8n", time);
 }, "4n").start(0);
 
+//play another note every off quarter-note, by starting it "8n"
 const loopB = new Tone.Loop(time => {
-	synthB.triggerAttackRelease("C4", "16n", time);
-}, "4n").start("16n");
+	synthB.triggerAttackRelease("C3", "8n", time);
+}, "4n").start("8n");
 
 
 //editing Transport
-Tone.Transport.bpm.value = 100; //normally 136
-
+Tone.Transport.bpm.value = 100; //normally for crazy train
 
 //sounds used in game
 let sounds = new Tone.Players({
   "bugSquished" : "sounds/bugSquish.wav" ,
   "gameOverSound" : "sounds/gameOver.wav",
-  "countdown" :"sounds/countdown.wav"
+  "countdown" :"sounds/countdown.wav",
+  "coinSound" : "sounds/coin.wav"
 });
 
 //editing sounds 
+sounds.player("coinSound").playbackRate = 0.78; 
+sounds.player("coinSound").volume.value = -25; 
 sounds.player("gameOverSound").playbackRate = 0.75;
-sounds.player("countdown").volume.value = -8;
+sounds.player("gameOverSound").volume.value = -20;
+sounds.player("countdown").volume.value = -20;
 
 
 
@@ -91,12 +101,13 @@ function reset(){
 function draw() {
   switch(game.state){
     case GameState.Playing:
-      background(220);
+      background(200);
   
       for(let i=0; i < bugs.length; i++) {
         bugs[i].draw();
       }
       textSize(40);
+      fill(255)
       text(game.score, 20 , 40);
       let currentTime = game.maxTime - game.elapsedTime
       text(ceil(currentTime), width - 30, 40)
@@ -117,24 +128,35 @@ function draw() {
     case GameState.GameOver: 
       game.maxScore = max(game.score, game.maxScore);
 
-      background(0);
+      background(30);
       fill(255);
-      textSize(30)
+      textSize(60)
       textAlign(CENTER);
-      text("Game Over!", width/2, height/2);
-      text("Score:" + game.score, width/2, height/2 + 50)
+      text("Game Over!", width/2, height/3);
+      textSize(30)
+      text("Score:" + game.score, width/2, height/2 + 40)
       text("High Score: " + game.maxScore, width/2,height/2 +100);
       textSize(20)
-      text("Press any key to play again", width/2, height/2 + 150);
+      text("Press any key to play again", width/2, height/2 + 200);
       break;
+
     case GameState.Start:
-      background(0);
+      
+      background(30);
+      image(bugSpritesheet, width/2 , height/2 + 40 , 150 , 150, 0, 0, 80, 80);
       fill(255);
-      textSize(50);
+      textSize(100);
       textAlign(CENTER)
-      text("Bug Game", width/2, height/2)
-      textSize(20);
-      text("Press Any Key to Start", width/2, height- 75);
+      text("Bug Squish", width/2, height/3)
+      textSize(30);
+      fill(255, 230, 0)
+      if (frameCount % 55 <= 30){
+        text("Press SpaceBar to Play", width/2, height- 90);
+        if (frameCount % 55 == 0)
+        {
+          sounds.player("coinSound").start();
+        }
+      }
       break;
   }
 }
@@ -143,14 +165,16 @@ function keyPressed() {
   switch(game.state) {
 
     case GameState.Start:
-      Tone.Transport.start();
-      Tone.Transport.bpm.rampTo(150, 24);
-      Tone.Transport.stop("+25");
-      game.state = GameState.Playing;
+      if (keyCode === 32) {
+        Tone.Transport.start();
+        Tone.Transport.bpm.rampTo(150, 24);
+        Tone.Transport.stop("+25");
+        game.state = GameState.Playing;
+      }
       break;
-
     case GameState.GameOver: 
       reset();
+      Tone.Transport.bpm.value = 100;
       Tone.Transport.start();
       Tone.Transport.bpm.rampTo(150, 24);
       Tone.Transport.stop("+25");
@@ -250,5 +274,4 @@ class bug{
   stop() {
     this.moving = 0;
   }
-
 }
