@@ -1,6 +1,7 @@
 let cnv;
 let bugSpritesheet;
 let bugs = [];
+let initialized = false;
 
 //JSON GameState obect
 let GameState = {
@@ -149,10 +150,11 @@ function draw() {
       textAlign(CENTER)
       text("Bug Squish", width/2, height/3)
       textSize(30);
+      text("press any key to initialize game", width/2, height/2.5 + 5)
       fill(255, 230, 0)
-      if (frameCount % 55 <= 30){
+      if (frameCount % 55 <= 30 && initialized){
         text("Press SpaceBar to Play", width/2, height- 90);
-        if (frameCount % 55 == 0)
+        if (frameCount % 55 == 1)
         {
           sounds.player("coinSound").start();
         }
@@ -165,6 +167,7 @@ function keyPressed() {
   switch(game.state) {
 
     case GameState.Start:
+      initialized = true;
       if (keyCode === 32) {
         Tone.Transport.start();
         Tone.Transport.bpm.rampTo(150, 24);
