@@ -167,13 +167,13 @@ function keyPressed() {
   switch(game.state) {
 
     case GameState.Start:
-      initialized = true;
-      if (keyCode === 32) {
+      if (keyCode === 32 && initialized) {
         Tone.Transport.start();
         Tone.Transport.bpm.rampTo(150, 24);
         Tone.Transport.stop("+25");
         game.state = GameState.Playing;
       }
+      initialized = true;
       break;
     case GameState.GameOver: 
       reset();
